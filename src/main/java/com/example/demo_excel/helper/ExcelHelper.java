@@ -1,13 +1,10 @@
 package com.example.demo_excel.helper;
 
-import com.example.demo_excel.model.Department;
-import com.example.demo_excel.model.Employee;
+import com.example.demo_excel.dto.EmployeeDTO;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,15 +27,14 @@ public class ExcelHelper {
         return true;
     }
 
-    public static List<Employee> excelToTutorials(InputStream is) {
+    public static List<EmployeeDTO> excelToEmployees(InputStream is) {
         try {
             Workbook workbook = new XSSFWorkbook(is);
 
             Sheet sheet = workbook.getSheet(SHEET);
             Iterator<Row> rows = sheet.iterator();
 
-            List<Employee> employeeList = new ArrayList<Employee>();
-
+            List<EmployeeDTO> employeeList = new ArrayList<EmployeeDTO>();
             int rowNumber = 0;
             while (rows.hasNext()) {
                 Row currentRow = rows.next();
@@ -51,35 +47,28 @@ public class ExcelHelper {
 
                 Iterator<Cell> cellsInRow = currentRow.iterator();
 
-                Employee employee = new Employee();
-                Department department = new Department();
+                EmployeeDTO employeeDTO = new EmployeeDTO();
+
 
                 int cellIdx = 0;
                 while (cellsInRow.hasNext()) {
                     Cell currentCell = cellsInRow.next();
 
                     switch (cellIdx) {
-                        case 0:
-                            employee.setId((int) currentCell.getNumericCellValue());
-                            break;
-
                         case 1:
-                            employee.setName(currentCell.getStringCellValue());
+                            employeeDTO.setName(currentCell.getStringCellValue());
                             break;
 
                         case 2:
-                            employee.setAddress(currentCell.getStringCellValue());
+                            employeeDTO.setAddress(currentCell.getStringCellValue());
                             break;
 
                         case 3:
-                            employee.setSalary((int) currentCell.getNumericCellValue());
+                            employeeDTO.setSalary((int) currentCell.getNumericCellValue());
                             break;
-//                        case 4:
-//                            if(department==null){
-//
-//                            }
-//                            break;
-
+                        case 4:
+                            employeeDTO.setDepartmentName(currentCell.getStringCellValue());
+                            break;
 
                         default:
                             break;
@@ -88,7 +77,7 @@ public class ExcelHelper {
                     cellIdx++;
                 }
 
-                employeeList.add(employee);
+                employeeList.add(employeeDTO);
             }
 
             workbook.close();

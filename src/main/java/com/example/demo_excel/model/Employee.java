@@ -7,13 +7,14 @@ import lombok.Data;
 @Entity
 public class Employee {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String address;
-    private int salary;
+    private Integer salary;
 
     @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @Override
