@@ -20,10 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService{
    private EmployeeRepository employeeRepository;
 
     public List<Employee> listAll() {
-        return employeeRepository.findAll(Sort.by("id").ascending());
+        return employeeRepository.findAll(Sort.by("name").ascending());
     }
-
-
 
     public void save(MultipartFile file) {
         try {
@@ -37,8 +35,5 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
-
-
-
 }
 

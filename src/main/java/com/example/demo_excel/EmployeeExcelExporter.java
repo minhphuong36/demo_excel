@@ -36,10 +36,12 @@ public class EmployeeExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
 
-        createCell(row, 0, "Employee ID", style);
-        createCell(row, 1, "Name", style);
-        createCell(row, 2, "Address", style);
-        createCell(row, 3, "Salary", style);
+//        createCell(row, 0, "Employee ID", style);
+        createCell(row, 0, "Tên ", style);
+        createCell(row, 1, "Địa chỉ", style);
+        createCell(row, 2, "Lương", style);
+        createCell(row, 3, "Phòng", style);
+
 
     }
 
@@ -67,12 +69,11 @@ public class EmployeeExcelExporter {
         for (Employee employee : employeeList) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-
-            createCell(row, columnCount++, employee.getId(), style);
+//            createCell(row, columnCount++, employee.getId(), style);
             createCell(row, columnCount++, employee.getName(), style);
             createCell(row, columnCount++, employee.getAddress(), style);
             createCell(row, columnCount++, employee.getSalary(), style);
-
+            createCell(row, columnCount++, employee.getDepartment().getName(), style);
 
         }
     }

@@ -1,9 +1,6 @@
 package com.example.demo_excel.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -16,7 +13,8 @@ public class Employee {
     private String address;
     private int salary;
 
-
+    @ManyToOne
+    private Department department;
 
     @Override
     public String toString() {
@@ -25,6 +23,7 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", salary=" + salary +
+                ", department=" + department +
                 '}';
     }
 }

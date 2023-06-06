@@ -1,5 +1,6 @@
 package com.example.demo_excel.helper;
 
+import com.example.demo_excel.model.Department;
 import com.example.demo_excel.model.Employee;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class ExcelHelper {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    static String[] HEADERs = { "id", "name", "address", "salary" };
+    static String[] HEADERs = { "id", "name", "address", "salary","department_id"};
     static String SHEET = "employee";
 
     public static boolean hasExcelFormat(MultipartFile file) {
@@ -51,6 +52,7 @@ public class ExcelHelper {
                 Iterator<Cell> cellsInRow = currentRow.iterator();
 
                 Employee employee = new Employee();
+                Department department = new Department();
 
                 int cellIdx = 0;
                 while (cellsInRow.hasNext()) {
@@ -72,6 +74,12 @@ public class ExcelHelper {
                         case 3:
                             employee.setSalary((int) currentCell.getNumericCellValue());
                             break;
+//                        case 4:
+//                            if(department==null){
+//
+//                            }
+//                            break;
+
 
                         default:
                             break;
